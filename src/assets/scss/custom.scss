@@ -1,0 +1,7 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+//override bootstrap styles
+
+.btn {
+  min-width: 140px;
+}
