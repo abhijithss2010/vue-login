@@ -8,7 +8,6 @@
     </button>
   </div>
 </template>
-<style scoped lang="scss"></style>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
@@ -21,3 +20,5 @@ export default class Home extends Vue {
   }
 }
 </script>
+
+<style scoped lang="scss"></style>
