@@ -90,6 +90,7 @@ export default class SigninForm extends Vue {
 
       LoginService.signin(data)
         .then(() => {
+          sessionStorage.setItem("is-auth", "1");
           router.push("home");
           this.loading = false;
         })

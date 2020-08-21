@@ -13,6 +13,7 @@ import router from "@/router";
 export default class Home extends Vue {
   logout() {
     router.push("/");
+    sessionStorage.removeItem("is-auth");
   }
 }
 </script>
