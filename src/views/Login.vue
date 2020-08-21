@@ -66,12 +66,17 @@
                     type="email"
                     class="form-control"
                     id="email_l"
-                    v-model.trim="$v.siginFormVal.email.$model"
+                    :value="$v.siginFormVal.email.$model"
+                    @blur="$v.siginFormVal.email.$model = $event.target.value.trim()"
                   />
                   <div
                     class="error"
                     v-if="$v.siginFormVal.email.$dirty && !$v.siginFormVal.email.required"
                   >Email is required</div>
+                  <div
+                    class="error"
+                    v-if="$v.siginFormVal.email.$dirty && !$v.siginFormVal.email.emailVal"
+                  >Enter a valid email</div>
                 </div>
 
                 <div class="form-group">
@@ -80,12 +85,17 @@
                     type="password"
                     class="form-control"
                     id="password_l"
-                    v-model="$v.siginFormVal.pwd.$model"
+                    :value="$v.siginFormVal.pwd.$model"
+                    @blur="$v.siginFormVal.pwd.$model = $event.target.value"
                   />
                   <div
                     class="error"
-                    v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.email.required"
+                    v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.pwd.required"
                   >Password is required</div>
+                  <div
+                    class="error"
+                    v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.pwd.maxLength"
+                  >Password should not contain more than {{ $v.siginFormVal.pwd.$params.maxLength.max }} characters.</div>
                 </div>
 
                 <div class="form-group">
@@ -99,6 +109,9 @@
                     <span class="sr-only">Loading...</span>
                   </div>
                 </div>
+                <pre>
+                <!-- {{$v }} -->
+                </pre>
               </form>
             </div>
           </transition>
@@ -184,9 +197,15 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import LoginService from "@/services/login-service";
 import SigninData from "@/models/signin-interface";
-import { required } from "vuelidate/lib/validators";
+import { required, maxLength } from "vuelidate/lib/validators";
 import { validationMixin } from "vuelidate";
 import router from "@/router";
+import { helpers } from "vuelidate/lib/validators";
+
+const emailVal = helpers.regex(
+  "emailVal",
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+);
 
 // import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
@@ -194,8 +213,8 @@ import router from "@/router";
   mixins: [validationMixin],
   validations: {
     siginFormVal: {
-      email: { required },
-      pwd: { required }
+      email: { required, emailVal },
+      pwd: { required, maxLength: maxLength(20) }
     }
   },
   components: {}
@@ -221,12 +240,11 @@ export default class Login extends Vue {
       this.loading = true;
       const data: SigninData = {
         email: this.siginFormVal.email,
-        password: this.siginFormVal.pwd
+        password: window.btoa(this.siginFormVal.pwd)
       };
 
       LoginService.signin(data)
         .then(response => {
-          console.log(response);
           router.push("home");
           this.loading = false;
         })
