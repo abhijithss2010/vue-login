@@ -13,11 +13,15 @@
       <div
         class="error"
         v-if="$v.siginFormVal.email.$dirty && !$v.siginFormVal.email.required"
-      >Email is required</div>
+      >
+        Email is required
+      </div>
       <div
         class="error"
         v-if="$v.siginFormVal.email.$dirty && !$v.siginFormVal.email.emailVal"
-      >Enter a valid email</div>
+      >
+        Enter a valid email
+      </div>
     </div>
 
     <div class="form-group">
@@ -32,8 +36,13 @@
       <div
         class="error"
         v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.pwd.required"
-      >Password is required</div>
-      <div class="error" v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.pwd.maxLength">
+      >
+        Password is required
+      </div>
+      <div
+        class="error"
+        v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.pwd.maxLength"
+      >
         Password should not contain more than
         {{ $v.siginFormVal.pwd.$params.maxLength.max }} characters.
       </div>
@@ -42,7 +51,9 @@
     <div class="form-group">
       <a href>Forgot password?</a>
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">Email does not exist</div>
+    <div v-if="error" class="alert alert-danger" role="alert">
+      Email does not exist
+    </div>
     <button type="submit" class="btn btn-secondary">SIGN IN</button>
     <div class="clearfix"></div>
     <div class="d-flex justify-content-center" v-if="loading">

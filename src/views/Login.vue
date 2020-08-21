@@ -14,7 +14,9 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 @click="signupFormActive = true"
-              >SIGN UP</button>
+              >
+                SIGN UP
+              </button>
             </div>
           </div>
           <div class="col text-white">
@@ -28,7 +30,9 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 @click="signupFormActive = false"
-              >SIGN IN</button>
+              >
+                SIGN IN
+              </button>
             </div>
           </div>
 
@@ -41,7 +45,9 @@
               }"
               v-if="initLoad"
             >
-              <signup-form-component v-if="signupFormActive"></signup-form-component>
+              <signup-form-component
+                v-if="signupFormActive"
+              ></signup-form-component>
               <signin-form-component v-else></signin-form-component>
             </div>
           </transition>

@@ -7,7 +7,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Login",
-    component: () => import("@/views/Login.vue"),
+    component: () => import("@/views/Login.vue")
   },
   {
     path: "/home",
@@ -22,12 +22,12 @@ const routes: Array<RouteConfig> = [
       } else {
         next({ name: "Login" });
       }
-    },
-  },
+    }
+  }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
 
 export default router;

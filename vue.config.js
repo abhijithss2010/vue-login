@@ -8,8 +8,8 @@ module.exports = {
         additionalData: `
           @import "@/assets/scss/mixins/_mixins.scss";
           @import "@/assets/scss/_variables.scss";
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
