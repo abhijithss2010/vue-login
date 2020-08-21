@@ -14,9 +14,7 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 @click="signupFormActive = true"
-              >
-                SIGN UP
-              </button>
+              >SIGN UP</button>
             </div>
           </div>
           <div class="col text-white">
@@ -30,9 +28,7 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 @click="signupFormActive = false"
-              >
-                SIGN IN
-              </button>
+              >SIGN IN</button>
             </div>
           </div>
 
@@ -45,9 +41,7 @@
               }"
               v-if="initLoad"
             >
-              <signup-form-component
-                v-if="signupFormActive"
-              ></signup-form-component>
+              <signup-form-component v-if="signupFormActive"></signup-form-component>
               <signin-form-component v-else></signin-form-component>
             </div>
           </transition>
@@ -86,16 +80,16 @@ export default class Login extends Vue {
 }
 
 .c-black-box {
-  background: rgba(0, 0, 0, 0.7);
-  height: 400px;
-  box-shadow: -1px 3px 17px 5px rgba(0, 0, 0, 0.52);
+  background: rgba($black, 0.7);
+  height: rem-calc(400px);
+  box-shadow: -1px 3px 17px 5px rgba($black, 0.52);
   position: relative;
 }
 
 .c-white-box {
   height: 120%;
   background: white;
-  padding: 40px;
+  padding: rem-calc(40px);
   position: absolute;
   width: 45%;
   left: 50%;
@@ -113,16 +107,16 @@ export default class Login extends Vue {
   width: 80%;
   margin: 0 auto;
   p {
-    font-size: 14px;
+    font-size: rem-calc(14px);
   }
   h2 {
-    font-size: 26px;
+    font-size: rem-calc(26px);
   }
 }
 
 .btn-outline-secondary {
-  border-color: white;
-  color: white;
+  border-color: $white;
+  color: $white;
 }
 
 .slide-enter-active {

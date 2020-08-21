@@ -3,5 +3,5 @@
 //override bootstrap styles
 
 .btn {
-  min-width: 140px;
+  min-width: rem-calc(140px);
 }
