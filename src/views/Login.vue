@@ -15,7 +15,9 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 @click="sigupFormActive = true"
-              >SIGN UP</button>
+              >
+                SIGN UP
+              </button>
             </div>
           </div>
           <div class="col text-white">
@@ -30,14 +32,19 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 @click="sigupFormActive = false"
-              >SIGN IN</button>
+              >
+                SIGN IN
+              </button>
             </div>
           </div>
 
           <transition name="slide">
             <div
               class="c-white-box rounded"
-              :class="{'c-signin-box':!sigupFormActive,'c-signup-box':sigupFormActive}"
+              :class="{
+                'c-signin-box': !sigupFormActive,
+                'c-signup-box': sigupFormActive
+              }"
               v-if="initLoad"
             >
               <form v-if="sigupFormActive" class="c-signup-form" novalidate>
@@ -58,7 +65,12 @@
                 <button type="submit" class="btn btn-secondary">SIGN UP</button>
               </form>
 
-              <form v-else class="c-signin-form" @submit.prevent="signin()" novalidate>
+              <form
+                v-else
+                class="c-signin-form"
+                @submit.prevent="signin()"
+                novalidate
+              >
                 <h4>SIGN IN</h4>
                 <div class="form-group">
                   <label for="email_l">Email</label>
@@ -67,16 +79,28 @@
                     class="form-control"
                     id="email_l"
                     :value="$v.siginFormVal.email.$model"
-                    @blur="$v.siginFormVal.email.$model = $event.target.value.trim()"
+                    @blur="
+                      $v.siginFormVal.email.$model = $event.target.value.trim()
+                    "
                   />
                   <div
                     class="error"
-                    v-if="$v.siginFormVal.email.$dirty && !$v.siginFormVal.email.required"
-                  >Email is required</div>
+                    v-if="
+                      $v.siginFormVal.email.$dirty &&
+                        !$v.siginFormVal.email.required
+                    "
+                  >
+                    Email is required
+                  </div>
                   <div
                     class="error"
-                    v-if="$v.siginFormVal.email.$dirty && !$v.siginFormVal.email.emailVal"
-                  >Enter a valid email</div>
+                    v-if="
+                      $v.siginFormVal.email.$dirty &&
+                        !$v.siginFormVal.email.emailVal
+                    "
+                  >
+                    Enter a valid email
+                  </div>
                 </div>
 
                 <div class="form-group">
@@ -90,18 +114,31 @@
                   />
                   <div
                     class="error"
-                    v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.pwd.required"
-                  >Password is required</div>
+                    v-if="
+                      $v.siginFormVal.pwd.$dirty &&
+                        !$v.siginFormVal.pwd.required
+                    "
+                  >
+                    Password is required
+                  </div>
                   <div
                     class="error"
-                    v-if="$v.siginFormVal.pwd.$dirty && !$v.siginFormVal.pwd.maxLength"
-                  >Password should not contain more than {{ $v.siginFormVal.pwd.$params.maxLength.max }} characters.</div>
+                    v-if="
+                      $v.siginFormVal.pwd.$dirty &&
+                        !$v.siginFormVal.pwd.maxLength
+                    "
+                  >
+                    Password should not contain more than
+                    {{ $v.siginFormVal.pwd.$params.maxLength.max }} characters.
+                  </div>
                 </div>
 
                 <div class="form-group">
                   <a href>Forgot password?</a>
                 </div>
-                <div v-if="error" class="alert alert-danger" role="alert">Email does not exist</div>
+                <div v-if="error" class="alert alert-danger" role="alert">
+                  Email does not exist
+                </div>
                 <button type="submit" class="btn btn-secondary">SIGN IN</button>
                 <div class="clearfix"></div>
                 <div class="d-flex justify-content-center" v-if="loading">
@@ -194,7 +231,7 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import LoginService from "@/services/login-service";
 import SigninData from "@/models/signin-interface";
 import { required, maxLength } from "vuelidate/lib/validators";
@@ -220,7 +257,7 @@ const emailVal = helpers.regex(
   components: {}
 })
 export default class Login extends Vue {
-  private siginFormVal: any = {
+  private siginFormVal = {
     email: "",
     pwd: ""
   };
@@ -234,7 +271,7 @@ export default class Login extends Vue {
     this.initLoad = true;
   }
 
-  signin(event: any) {
+  signin() {
     this.$v.$touch();
     if (!this.$v.$invalid) {
       this.loading = true;
@@ -244,7 +281,7 @@ export default class Login extends Vue {
       };
 
       LoginService.signin(data)
-        .then(response => {
+        .then(() => {
           router.push("home");
           this.loading = false;
         })
